@@ -59,7 +59,7 @@ class ParentWindow(Frame):
 
         # Load in the GUI widgets from a separate module,
         # keeping your code compartmentalized and clutter free
-        Phonebook_GUI.load.load_gui(self)
+        Phonebook_GUI.load_gui(self)
         
         # Instantiate the Tkinter menu dropdown object
         # This is the menu that will appear at the top of our window

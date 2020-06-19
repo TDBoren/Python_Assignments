@@ -62,9 +62,9 @@ def first_run(self):
         cur = conn.cursor()
         cur,count = count_records(cur)
         if count < 1:
-            cur.execute("""INSERT INTO tbl_phonebook (col_fname,col_lname,col_phone,col_email) VALUES (?,?,?,?,?)""", (data))
-            conn.commit()
-        conn.close()
+            cur.execute("""INSERT INTO tbl_phonebook (col_fname,col_lname,col_fullname,col_phone,col_email) VALUES (?,?,?,?,?)""", (data))
+    conn.commit()
+    conn.close()
 
 def count_records(cur):
     count = ""
@@ -131,7 +131,7 @@ def addToList(self):
         messagebox.showerror("Missing Text Error","Please ensure that there is data in all four fields.")
 
 def onDelete(self):
-    var_select = self.lstLiost1.get(self.lstList1.curselection()) # Listbox's selected value
+    var_select = self.lstList1.get(self.lstList1.curselection()) # Listbox's selected value
     conn = sqlite3.connect('Phonebook.db')
     with conn:
         cur=conn.cursor()
@@ -140,7 +140,7 @@ def onDelete(self):
         cur.execute("""SELECT COUNT(*) FROM tbl_phonebook""")
         count = cur.fetchone()[0]
         if count > 1:
-            confirm = massagebox.askokcancel("Delete Confirmation","All information associated with, {{}} \n will be pernamently deleted from the database. \n\nProceed with the deletion request?".format(var_select))
+            confirm = messagebox.askokcancel("Delete Confirmation","All information associated with, {{}} \n will be pernamently deleted from the database. \n\nProceed with the deletion request?".format(var_select))
             if confirm:
                 conn = sqlite3.connect('Phonebook.db')
                 with conn:
@@ -176,7 +176,7 @@ def onClear(self):
 def onRefresh(self):
     # Populate the listbox,coinciding with the database
     self.lstList1.delete(0,END)
-    conn = sqlite3.conncet('Phonebook.db')
+    conn = sqlite3.connect('Phonebook.db')
     with conn:
         cursor = conn.cursor()
         cursor.execute("""SELECT COUNT(*) FROM tbl_phonebook""")
