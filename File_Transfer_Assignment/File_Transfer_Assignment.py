@@ -54,11 +54,14 @@ class ParentWindow(Frame):
         todaysDate = datetime.datetime.now()
         fileList =os.listdir(source)
         for file in fileList:
-            fpath = os.path.join(source, file, '/')
+            print("file: ", file)
+            fpath = os.path.join(source, file)
+            print("fpath: ", fpath)
             modifyDate = datetime.datetime.fromtimestamp(os.path.getmtime(fpath))
             newDate = todaysDate - timedelta(days=1)
             if modifyDate > newDate:
-                shutil.move(source+file, target)
+                shutil.move(source + "/" + file, target)
+                
                 
     def cancel(self):
         self.master.destroy()
